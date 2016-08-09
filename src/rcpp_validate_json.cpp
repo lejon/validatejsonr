@@ -239,3 +239,53 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
     }
 }
 
+//' Validate a JSON string against a JSON Schema string
+//' 
+//' Description
+//' @param json_string The JSON code 
+//' @param schema_string The JSON Schema string
+//' This function will check that the supplied schema is not empty and it will then validate 
+//' that the JSON code is valid (and well formed) w.r.t the supplied schema.
+//' @export
+//' @useDynLib JSONValidate
+//' @importFrom Rcpp evalCpp
+// [[Rcpp::export]]
+List validate_json_with_schema(std::string json_string, std::string schema_string) {
+
+  if(json_string.empty()) stop("JSON is empty");
+  if(schema_string.empty()) stop("JSON Schema file is empty");
+  
+  rapidjson::Document d;
+
+  rapidjson::StringStream fs(schema_string.c_str());
+  d.ParseStream(fs);
+  if (d.HasParseError()) {
+    std::string msg = build_schema_parse_error_msg(schema_string, d);
+    return build_return(eMalformedJSON, msg, schema_string, json_string);
+  }
+  
+  rapidjson::SchemaDocument sd(d);
+  rapidjson::SchemaValidator validator(sd);
+  rapidjson::Reader reader;
+  
+  rapidjson::StringStream is(json_string.c_str());
+  if (!reader.Parse(is, validator) && reader.GetParseErrorCode() != rapidjson::kParseErrorTermination) {
+    //REprintf("Parsing failed!\n");
+    // Schema validator error would cause kParseErrorTermination, which will handle it in next step.
+    std::string msg = build_reader_parse_error_msg(reader);
+    return build_return(eMalformedJSON, msg, schema_string, json_string);
+  }
+  
+  if (validator.IsValid()) {
+    //rapidjson::StringBuffer sb;
+    //rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+    //d.Accept(writer);
+    //return build_return(EXIT_SUCCESS, sb.GetString(), schemafn, json_string);
+    return build_return(EXIT_SUCCESS, "JSON string is valid with respect to Schema", schema_string, json_string);
+  }
+  else {
+    std::string msg = build_invalid_error_msg(validator);
+    return build_return(eInvalidJSON, msg, schema_string, json_string);
+  }
+}
+
