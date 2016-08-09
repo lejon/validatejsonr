@@ -23,7 +23,6 @@ enum JSONValidateErrorCodes {
   eInvalidJSON = 200      //
 };
 
-
 List build_return(int returnval, std::string return_ms, std::string schemafn, std::string jsonfn) {
     CharacterVector msg = CharacterVector::create( return_ms )  ;
     CharacterVector schfn = CharacterVector::create( schemafn )  ;
@@ -55,7 +54,20 @@ std::string build_reader_parse_error_msg(rapidjson::Reader& reader) {
   msg += "): ";
   msg += GetParseError_En(reader.GetParseErrorCode());
   return msg;
-  
+}
+
+std::string build_invalid_error_msg(rapidjson::SchemaValidator& validator) {
+  rapidjson::StringBuffer sb;
+  validator.GetInvalidSchemaPointer().StringifyUriFragment(sb);
+  std::string msg ("Invalid schema point: ");
+  msg.append(sb.GetString());
+  msg.append("Invalid keyword: ");
+  msg.append(validator.GetInvalidSchemaKeyword());
+  sb.Clear();
+  validator.GetInvalidDocumentPointer().StringifyUriFragment(sb);
+  msg.append (" Invalid document point: ");
+  msg.append(sb.GetString());
+  return msg;
 }
 
 //' Validate a JSON file against a JSON Schema file
@@ -118,10 +130,6 @@ List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn)
         fclose(fp);
     }
     
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-    d.Accept(writer);
-        
     rapidjson::SchemaDocument sd(d);
     rapidjson::SchemaValidator validator(sd);
     rapidjson::Reader reader;
@@ -139,21 +147,13 @@ List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn)
     }
     
     if (validator.IsValid()) {
-        //Rprintf("Input JSON is valid.\n");
-        return build_return(EXIT_SUCCESS, sb.GetString(), schemafn, jsonfn);
+        //rapidjson::StringBuffer sb;
+        //rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+        //d.Accept(writer);
+        return build_return(EXIT_SUCCESS, "JSON file is valid with respect to Schema", schemafn, jsonfn);
     }
     else {
-        //REprintf("Input JSON is INvalid.\n");
-        rapidjson::StringBuffer sb;
-        validator.GetInvalidSchemaPointer().StringifyUriFragment(sb);
-        std::string msg ("Invalid schema: ");
-        msg.append(sb.GetString());
-        msg.append("Invalid keyword: ");
-        msg.append(validator.GetInvalidSchemaKeyword());
-        sb.Clear();
-        validator.GetInvalidDocumentPointer().StringifyUriFragment(sb);
-        msg.append (" Invalid document: ");
-        msg.append(sb.GetString());
+        std::string msg = build_invalid_error_msg(validator);
         return build_return(eInvalidJSON, msg, schemafn, jsonfn);
     }
 }
@@ -214,10 +214,6 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
         fclose(fp);
     }
     
-    rapidjson::StringBuffer sb;
-    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
-    d.Accept(writer);
-    
     rapidjson::SchemaDocument sd(d);
     rapidjson::SchemaValidator validator(sd);
     rapidjson::Reader reader;
@@ -231,19 +227,14 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
     }
     
     if (validator.IsValid()) {
-        return build_return(EXIT_SUCCESS, sb.GetString(), schemafn, json_string);
+        //rapidjson::StringBuffer sb;
+        //rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(sb);
+        //d.Accept(writer);
+        //return build_return(EXIT_SUCCESS, sb.GetString(), schemafn, json_string);
+        return build_return(EXIT_SUCCESS, "JSON string is valid with respect to Schema", schemafn, json_string);
     }
     else {
-        rapidjson::StringBuffer sb;
-        validator.GetInvalidSchemaPointer().StringifyUriFragment(sb);
-        std::string msg ("Invalid schema: ");
-        msg.append(sb.GetString());
-        msg.append("Invalid keyword: ");
-        msg.append(validator.GetInvalidSchemaKeyword());
-        sb.Clear();
-        validator.GetInvalidDocumentPointer().StringifyUriFragment(sb);
-        msg.append (" Invalid document: ");
-        msg.append(sb.GetString());
+        std::string msg = build_invalid_error_msg(validator);
         return build_return(eInvalidJSON, msg, schemafn, json_string);
     }
 }
