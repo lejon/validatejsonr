@@ -1,0 +1,32 @@
+{
+    "properties": {
+      "category": {
+        "enum": [
+          "album",
+          "book",
+          "other",
+          "video"
+        ]
+      },
+      "description": {
+        "type": "string"
+      },
+      "price": {
+        "exclusiveMinimum": true,
+        "minimum": 0.0,
+        "type": "number"
+      },
+      "title": {
+        "maxLength": 200,
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "required": [
+      "category",
+      "price",
+      "title"
+    ],
+    "type": "object"
+}
+
