@@ -1,0 +1,13 @@
+Package: JSONValidate
+Type: Package
+Title: This package supplies functions to validate JSON against JSON Schemas
+Version: 1.0
+Date: 2016-08-07
+Author: Leif Jonsson
+Maintainer: Leif Jonsson <leif.jonsson@gmail.com>
+Description: The current implementation uses the C++ library RapidJSON to supply the schema functionality, it supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).
+License: GPL (>= 2)
+Imports:
+    Rcpp (>= 0.12.6)
+LinkingTo: Rcpp
+RoxygenNote: 5.0.1
