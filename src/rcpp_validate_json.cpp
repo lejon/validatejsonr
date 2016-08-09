@@ -28,6 +28,17 @@ List build_return(int returnval, std::string return_ms, std::string schemafn, st
     return z;
 }
 
+std::string build_schema_parse_error_msg(std::string schemafn, rapidjson::Document& d) {
+  std::string msg ("Schema file '");
+  msg += schemafn;
+  msg += "' is not valid JSON\n";
+  msg += " Error(offset";
+  msg += static_cast<unsigned>(d.GetErrorOffset());
+  msg += "):";
+  msg += GetParseError_En(d.GetParseError());
+  return msg;
+}
+
 //' Validate a JSON file against a JSON Schema file
 //' 
 //' Description
@@ -54,15 +65,19 @@ List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn)
     
     struct stat json_stat_buffer;   
     bool json_is_accessable = stat (jsonfn.c_str(), &json_stat_buffer) == 0;
-    if(!json_is_accessable) stop("Cannot access JSON file");
+    std::string jsonerrmsg ("Cannot access JSON file:");
+    jsonerrmsg.append(jsonfn);
+    if(!json_is_accessable) stop(jsonerrmsg.c_str());
 
     struct stat schema_stat_buffer;   
     bool schema_is_accessable = stat (schemafn.c_str(), &schema_stat_buffer) == 0;
-    if(!schema_is_accessable) stop("Cannot access JSON Schmea file");
+    std::string schemaerrmsg ("Cannot access JSON Schmea file:");
+    schemaerrmsg.append(schemafn);
+    if(!schema_is_accessable) stop(schemaerrmsg.c_str());
 
     rapidjson::Document d;
-    Rprintf("Using schema file: %s\n", schemafn.c_str());
-    Rprintf("Using json file: %s\n",   jsonfn.c_str());
+    //Rprintf("Using schema file: %s\n", schemafn.c_str());
+    //Rprintf("Using json file: %s\n",   jsonfn.c_str());
 
     {
         FILE *fp = fopen(schemafn.c_str(), "r");
@@ -78,15 +93,10 @@ List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn)
         rapidjson::FileReadStream fs(fp, buffer, sizeof(buffer));
         d.ParseStream(fs);
         if (d.HasParseError()) {
-            fprintf(stderr, "Schema file '%s' is not a valid JSON\n", schemafn.c_str());
-            fprintf(stderr, "Error(offset %u): %s\n",
-                static_cast<unsigned>(d.GetErrorOffset()),
-                GetParseError_En(d.GetParseError()));
-            fclose(fp);
-            std::string msg ("Schema file '%s' is not a valid JSON\n");
-            msg.append(schemafn);
-            return build_return(EXIT_FAILURE, msg, schemafn, jsonfn);
-            //return EXIT_FAILURE;
+          fclose(fp);
+          std::string msg = build_schema_parse_error_msg(schemafn, d);
+          return build_return(EXIT_FAILURE, msg, schemafn, jsonfn);
+          //return EXIT_FAILURE;
         }
         fclose(fp);
     }
@@ -106,24 +116,22 @@ List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn)
     char jsonbuffer[READ_BUF_SIZE];
     
     rapidjson::FileReadStream is(jsonfp, jsonbuffer, sizeof(jsonbuffer));
-    Rprintf("Starting parsing....\n");
     if (!reader.Parse(is, validator) && reader.GetParseErrorCode() != rapidjson::kParseErrorTermination) {
-        REprintf("Parsing failed!\n");
+        //REprintf("Parsing failed!\n");
         // Schema validator error would cause kParseErrorTermination, which will handle it in next step.
-        std::string msg ("Input is not a valid JSON. Error(offset ");
+        std::string msg ("Input is not valid JSON. Error(offset ");
         msg.append(std::to_string(static_cast<unsigned>(reader.GetErrorOffset())));
         msg.append("): ");
         msg.append(GetParseError_En(reader.GetParseErrorCode()));
-        REprintf(msg.c_str());        
-        Rprintf("\n");        
         return build_return(EXIT_FAILURE, msg, schemafn, jsonfn);
     }
     
     if (validator.IsValid()) {
-        Rprintf("Input JSON is valid.\n");
+        //Rprintf("Input JSON is valid.\n");
+        return build_return(EXIT_SUCCESS, sb.GetString(), schemafn, jsonfn);
     }
     else {
-        REprintf("Input JSON is INvalid.\n");
+        //REprintf("Input JSON is INvalid.\n");
         rapidjson::StringBuffer sb;
         validator.GetInvalidSchemaPointer().StringifyUriFragment(sb);
         std::string msg ("Invalid schema: ");
@@ -134,11 +142,9 @@ List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn)
         validator.GetInvalidDocumentPointer().StringifyUriFragment(sb);
         msg.append (" Invalid document: ");
         msg.append(sb.GetString());
-        REprintf(msg.c_str());
+        //REprintf(msg.c_str());
         return build_return(EXIT_FAILURE, msg, schemafn, jsonfn);
     }
-
-    return build_return(0.0, sb.GetString(), schemafn, jsonfn);
 }
 
 
@@ -171,8 +177,8 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
     if(!schema_is_accessable) stop("Cannot access JSON Schmea file");
 
     rapidjson::Document d;
-    Rprintf("Using schema file: %s\n", schemafn.c_str());
-    Rprintf("Using supplied json string.");
+    //Rprintf("Using schema file: %s\n", schemafn.c_str());
+    //Rprintf("Using supplied json string.\n");
 
     {
         FILE *fp = fopen(schemafn.c_str(), "r");
@@ -188,13 +194,8 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
         rapidjson::FileReadStream fs(fp, buffer, sizeof(buffer));
         d.ParseStream(fs);
         if (d.HasParseError()) {
-            fprintf(stderr, "Schema file '%s' is not a valid JSON\n", schemafn.c_str());
-            fprintf(stderr, "Error(offset %u): %s\n",
-                static_cast<unsigned>(d.GetErrorOffset()),
-                GetParseError_En(d.GetParseError()));
             fclose(fp);
-            std::string msg ("Schema file '%s' is not a valid JSON\n");
-            msg.append(schemafn);
+            std::string msg = build_schema_parse_error_msg(schemafn, d);
             return build_return(EXIT_FAILURE, msg, schemafn, json_string);
             //return EXIT_FAILURE;
         }
@@ -212,24 +213,20 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
     rapidjson::Reader reader;
         
     rapidjson::StringStream is(json_string.c_str());
-    Rprintf("Starting parsing....\n");
     if (!reader.Parse(is, validator) && reader.GetParseErrorCode() != rapidjson::kParseErrorTermination) {
-        REprintf("Parsing failed!\n");
+        //REprintf("Parsing failed!\n");
         // Schema validator error would cause kParseErrorTermination, which will handle it in next step.
-        std::string msg ("Input is not a valid JSON. Error(offset ");
+        std::string msg ("Input is not valid JSON. Error(offset ");
         msg.append(std::to_string(static_cast<unsigned>(reader.GetErrorOffset())));
         msg.append("): ");
         msg.append(GetParseError_En(reader.GetParseErrorCode()));
-        REprintf(msg.c_str());        
-        Rprintf("\n");        
         return build_return(EXIT_FAILURE, msg, schemafn, json_string);
     }
     
     if (validator.IsValid()) {
-        Rprintf("Input JSON is valid.\n");
+        return build_return(EXIT_SUCCESS, sb.GetString(), schemafn, json_string);
     }
     else {
-        REprintf("Input JSON is INvalid.\n");
         rapidjson::StringBuffer sb;
         validator.GetInvalidSchemaPointer().StringifyUriFragment(sb);
         std::string msg ("Invalid schema: ");
@@ -240,10 +237,7 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
         validator.GetInvalidDocumentPointer().StringifyUriFragment(sb);
         msg.append (" Invalid document: ");
         msg.append(sb.GetString());
-        REprintf(msg.c_str());
         return build_return(EXIT_FAILURE, msg, schemafn, json_string);
     }
-
-    return build_return(0.0, sb.GetString(), schemafn, json_string);
 }
 
