@@ -19,7 +19,7 @@ test_that("validate malformed", {
   invalidjson1 <- readChar(invalidjsonfn1, file.info(invalidjsonfn1)$size)
   malformedjson <- readChar(malformedjsonfn, file.info(malformedjsonfn)$size)
   expect_that(validate_json_with_schemafile(invalidjson1, schemafile), equals(list(value=100,message="JSON Input is not well-formed JSON. Error(offset 14): Invalid value.", schema=schemafile, jsonfile=invalidjson1)))
-  expect_that(validate_json_with_schemafile(malformedjson, schemafile), equals(list(value=100,message="JSON Input is not well-formed JSON. Error(offset 0): Invalid value.", schema=schemafile, jsonfile=malformedjson)))
+  expect_that(validate_json_with_schemafile(malformedjson, schemafile)$message, equals("JSON Input is not well-formed JSON. Error(offset 12): Missing a colon after a name of object member."))
 })
 
 test_that("validate invalid", {  
