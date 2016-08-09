@@ -24,5 +24,5 @@ test_that("validate malformed", {
 
 test_that("validate invalid", {  
   invalidjson2 <- readChar(invalidjsonfn2, file.info(invalidjsonfn2)$size)
-  expect_that(validate_json_with_schemafile(invalidjson2, schemafile), equals(list(value=200,message="Invalid schema: #Invalid keyword: required Invalid document: #", schema=schemafile, jsonfile=invalidjson2)))
+  expect_that(validate_json_with_schemafile(invalidjson2, schemafile), equals(list(value=200,message="Invalid schema point: #Invalid keyword: required Invalid document point: #", schema=schemafile, jsonfile=invalidjson2)))
 })

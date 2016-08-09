@@ -20,7 +20,7 @@ test_that("validate malformed", {
 })
 
 test_that("validate invalid", {  
-  expect_that(validate_jsonfile_with_schemafile(invalidjson2, schemafile), equals(list(value=200,message="Invalid schema: #Invalid keyword: required Invalid document: #", schema=schemafile, jsonfile=invalidjson2)))
+  expect_that(validate_jsonfile_with_schemafile(invalidjson2, schemafile), equals(list(value=200,message="Invalid schema point: #Invalid keyword: required Invalid document point: #", schema=schemafile, jsonfile=invalidjson2)))
 })
 
 test_that("validate missing", {  
