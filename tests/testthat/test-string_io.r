@@ -1,6 +1,6 @@
 library(testthat)
 
-context("Validate JSON string IO")
+context("Validate JSON string-file IO")
 
 schemafile     <- system.file("extdata", "schema.json", package = "JSONValidate")
 invalidjsonfn1 <- system.file("extdata", "item-1.json", package = "JSONValidate")

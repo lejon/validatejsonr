@@ -1,6 +1,6 @@
 library(testthat)
 
-context("Validate JSON file IO")
+context("Validate JSON file-file IO")
 
 validjson     <- system.file("extdata", "item-3.json", package = "JSONValidate")
 malformedjson <- system.file("extdata", "malformed-json.json", package = "JSONValidate")
