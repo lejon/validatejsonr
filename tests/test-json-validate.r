@@ -1,2 +1,2 @@
 library(testthat)
-test_dir("inst/tests/")
+test_package("JSONValidate")
