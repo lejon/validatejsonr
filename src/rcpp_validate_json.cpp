@@ -42,7 +42,11 @@ std::string build_schema_parse_error_msg(std::string schemafn, rapidjson::Docume
   msg += schemafn;
   msg += "' is not well-formed JSON\n";
   msg += " Error(offset ";
-  msg += std::to_string(static_cast<unsigned>(d.GetErrorOffset()));
+  
+  char buffer [50];
+  sprintf (buffer, "%d", static_cast<unsigned>(d.GetErrorOffset()));
+  msg += buffer;
+  // bug in g++: msg += std::to_string(static_cast<unsigned>(d.GetErrorOffset()));
   msg += "):";
   msg += GetParseError_En(d.GetParseError());
   return msg;
@@ -50,7 +54,10 @@ std::string build_schema_parse_error_msg(std::string schemafn, rapidjson::Docume
 
 std::string build_reader_parse_error_msg(rapidjson::Reader& reader) {
   std::string msg ("JSON Input is not well-formed JSON. Error(offset ");
-  msg += std::to_string(static_cast<unsigned>(reader.GetErrorOffset()));
+  char buffer [50];
+  sprintf (buffer, "%d", static_cast<unsigned>(reader.GetErrorOffset()));
+  msg += buffer;
+  // bug in g++: msg += std::to_string(static_cast<unsigned>(reader.GetErrorOffset()));
   msg += "): ";
   msg += GetParseError_En(reader.GetParseErrorCode());
   return msg;
