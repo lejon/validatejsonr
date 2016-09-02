@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lejon/JSONValidate.svg?branch=master)](https://travis-ci.org/lejon/JSONValidate)
+
 # JSONValidate
 An R package for validation of JSON against JSON Schema. There are functions for using JSON file with JSON Schema file,
 a JSON string with a JSON Schema file and vice-versa, and finally a JSON string with a JSON Schema.
