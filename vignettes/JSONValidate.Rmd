@@ -10,7 +10,9 @@ vignette: >
 ---
 
 JSONValidate is an R wrapper around an efficient C++ JSON Schema validator called 'rapidjson'. You can read more about 'rapodjson' here: https://github.com/miloyip/rapidjson. JSON files can be *well-formed* and/or *valid*. A well-formed JSON file conforms to the *syntactic* 
-requirements of JSON. Additionaly a *valid* JSON file conforms to a specified JSON Schema.
+requirements of JSON. Additionaly a *valid* JSON file conforms to a specified JSON Schema. 
+
+JSONValidate via 'rapidjson' supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).
 
 ## Usage Scenarios
 
