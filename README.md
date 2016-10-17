@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/lejon/JSONValidate.svg?branch=master)](https://travis-ci.org/lejon/validatejsonr)
+[![Build Status](https://travis-ci.org/lejon/validatejsonr.svg?branch=master)](https://travis-ci.org/lejon/validatejsonr)
 
 # validatejsonr
 An R package for validation of JSON against JSON Schema. There are functions for using JSON file with JSON Schema file,
