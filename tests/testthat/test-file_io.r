@@ -2,11 +2,11 @@ library(testthat)
 
 context("Validate JSON file-file IO")
 
-validjson     <- system.file("extdata", "item-3.json", package = "JSONValidate")
-malformedjson <- system.file("extdata", "malformed-json.json", package = "JSONValidate")
-invalidjson1  <- system.file("extdata", "item-1.json", package = "JSONValidate")
-invalidjson2  <- system.file("extdata", "item-2.json", package = "JSONValidate")
-schemafile    <- system.file("extdata", "schema.json", package = "JSONValidate")
+validjson     <- system.file("extdata", "item-3.json", package = "validatejsonr")
+malformedjson <- system.file("extdata", "malformed-json.json", package = "validatejsonr")
+invalidjson1  <- system.file("extdata", "item-1.json", package = "validatejsonr")
+invalidjson2  <- system.file("extdata", "item-2.json", package = "validatejsonr")
+schemafile    <- system.file("extdata", "schema.json", package = "validatejsonr")
 
 test_that("validate valid", {  
   expect_that(validate_jsonfile_with_schemafile(validjson, schemafile)$value, equals(0))

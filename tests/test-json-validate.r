@@ -1,2 +1,2 @@
 library(testthat)
-test_package("JSONValidate")
+test_package("validatejsonr")

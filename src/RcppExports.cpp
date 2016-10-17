@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // validate_jsonfile_with_schemafile
 List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn);
-RcppExport SEXP JSONValidate_validate_jsonfile_with_schemafile(SEXP jsonfnSEXP, SEXP schemafnSEXP) {
+RcppExport SEXP validatejsonr_validate_jsonfile_with_schemafile(SEXP jsonfnSEXP, SEXP schemafnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // validate_json_with_schemafile
 List validate_json_with_schemafile(std::string json_string, std::string schemafn);
-RcppExport SEXP JSONValidate_validate_json_with_schemafile(SEXP json_stringSEXP, SEXP schemafnSEXP) {
+RcppExport SEXP validatejsonr_validate_json_with_schemafile(SEXP json_stringSEXP, SEXP schemafnSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // validate_jsonfile_with_schema
 List validate_jsonfile_with_schema(std::string jsonfn, std::string schema_string);
-RcppExport SEXP JSONValidate_validate_jsonfile_with_schema(SEXP jsonfnSEXP, SEXP schema_stringSEXP) {
+RcppExport SEXP validatejsonr_validate_jsonfile_with_schema(SEXP jsonfnSEXP, SEXP schema_stringSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // validate_json_with_schema
 List validate_json_with_schema(std::string json_string, std::string schema_string);
-RcppExport SEXP JSONValidate_validate_json_with_schema(SEXP json_stringSEXP, SEXP schema_stringSEXP) {
+RcppExport SEXP validatejsonr_validate_json_with_schema(SEXP json_stringSEXP, SEXP schema_stringSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

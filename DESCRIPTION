@@ -1,4 +1,4 @@
-Package: JSONValidate
+Package: validatejsonr
 Type: Package
 Title: This package supplies functions to validate JSON against JSON Schemas
 Version: 1.0

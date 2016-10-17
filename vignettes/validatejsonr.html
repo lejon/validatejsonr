@@ -12,9 +12,9 @@
 
 <meta name="author" content="Leif Jonsson" />
 
-<meta name="date" content="2016-10-16" />
+<meta name="date" content="2016-10-17" />
 
-<title>JSONValidate</title>
+<title>validatejsonr</title>
 
 
 
@@ -68,17 +68,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">JSONValidate</h1>
+<h1 class="title toc-ignore">validatejsonr</h1>
 <h4 class="author"><em>Leif Jonsson</em></h4>
-<h4 class="date"><em>2016-10-16</em></h4>
+<h4 class="date"><em>2016-10-17</em></h4>
 
 
 
-<p>JSONValidate is an R wrapper around an efficient C++ JSON Schema validator called ‘rapidjson’. You can read more about ‘rapodjson’ here: <a href="https://github.com/miloyip/rapidjson" class="uri">https://github.com/miloyip/rapidjson</a>. JSON files can be <em>well-formed</em> and/or <em>valid</em>. A well-formed JSON file conforms to the <em>syntactic</em> requirements of JSON. Additionaly a <em>valid</em> JSON file conforms to a specified JSON Schema.</p>
-<p>JSONValidate via ‘rapidjson’ supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).</p>
+<p>validatejsonr is an R wrapper around an efficient C++ JSON Schema validator called ‘rapidjson’. You can read more about ‘rapodjson’ here: <a href="https://github.com/miloyip/rapidjson" class="uri">https://github.com/miloyip/rapidjson</a>. JSON files can be <em>well-formed</em> and/or <em>valid</em>. A well-formed JSON file conforms to the <em>syntactic</em> requirements of JSON. Additionaly a <em>valid</em> JSON file conforms to a specified JSON Schema.</p>
+<p>validatejsonr via ‘rapidjson’ supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).</p>
 <div id="usage-scenarios" class="section level2">
 <h2>Usage Scenarios</h2>
-<p>JSONValidate support four main usage scenarios.</p>
+<p>validatejsonr support four main usage scenarios.</p>
 <ul>
 <li>Validate a JSON file against a JSON Schema file</li>
 <li>Validate a JSON string against a JSON Schema file</li>
@@ -101,19 +101,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="file---file-example" class="section level3">
 <h3>File - File Example</h3>
 <p>Example using a schema file on a well-formed and valid JSON file returns a 0 value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(JSONValidate)
-validjson     &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;item-3.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;JSONValidate&quot;</span>)
-schemafile    &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;schema.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;JSONValidate&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(validatejsonr)
+validjson     &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;item-3.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;validatejsonr&quot;</span>)
+schemafile    &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;schema.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;validatejsonr&quot;</span>)
 
 result &lt;-<span class="st"> </span><span class="kw">validate_jsonfile_with_schemafile</span>(validjson, schemafile)
 <span class="kw">print</span>(result$value)</code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">malformedjson &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;malformed-json.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;JSONValidate&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">malformedjson &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;malformed-json.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;validatejsonr&quot;</span>)
 
 <span class="kw">print</span>(result$message)</code></pre></div>
 <pre><code>## [1] &quot;JSON file is valid with respect to Schema&quot;</code></pre>
 <p>Using validate_* on a syntactically invalid JSON file returns a 1XX error.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">malformedjson &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;malformed-json.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;JSONValidate&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">malformedjson &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;malformed-json.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;validatejsonr&quot;</span>)
 
 result &lt;-<span class="st"> </span><span class="kw">validate_jsonfile_with_schemafile</span>(malformedjson, schemafile)
 <span class="kw">print</span>(result$value)</code></pre></div>
@@ -124,13 +124,13 @@ result &lt;-<span class="st"> </span><span class="kw">validate_jsonfile_with_sch
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;Schema that the function was called with:&quot;</span>)</code></pre></div>
 <pre><code>## Schema that the function was called with:</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(result$schema)</code></pre></div>
-<pre><code>## [1] &quot;/Users/lejon/Data/coding/R/JSONValidate/inst/extdata/schema.json&quot;</code></pre>
+<pre><code>## [1] &quot;/Users/lejon/Data/coding/R/validatejsonr/inst/extdata/schema.json&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="st">&quot;JSON File that the function was called with:&quot;</span>)</code></pre></div>
 <pre><code>## JSON File that the function was called with:</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(result$jsonfile)</code></pre></div>
-<pre><code>## [1] &quot;/Users/lejon/Data/coding/R/JSONValidate/inst/extdata/malformed-json.json&quot;</code></pre>
+<pre><code>## [1] &quot;/Users/lejon/Data/coding/R/validatejsonr/inst/extdata/malformed-json.json&quot;</code></pre>
 <p>Using validate_* on a syntactically correct JSON but invalid (file does not conform to schema) file returns a 2XX error.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">invalidjson  &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;item-2.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;JSONValidate&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">invalidjson  &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;item-2.json&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;validatejsonr&quot;</span>)
 
 result &lt;-<span class="st"> </span><span class="kw">validate_jsonfile_with_schemafile</span>(invalidjson, schemafile)
 

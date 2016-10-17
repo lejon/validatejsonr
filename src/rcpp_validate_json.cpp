@@ -1,10 +1,10 @@
 
-// validate_jsonfile_with_schemafile(system.file("extdata", "item-3.json", package = "JSONValidate"), system.file("extdata", "schema.json", package = "JSONValidate"))
-// validate_jsonfile_with_schemafile(system.file("extdata", "malformed-json.json", package = "JSONValidate"), system.file("extdata", "schema.json", package = "JSONValidate"))
-// validate_jsonfile_with_schemafile(system.file("extdata", "item-3.json", package = "JSONValidate"), system.file("extdata", "schema.json", package = "JSONValidate"))
-// validate_jsonfile_with_schemafile(system.file("extdata", "item-3.json", package = "JSONValidate"),system.file("extdata", "broken-schema.json", package = "JSONValidate"))
-// validate_json_with_schemafile("{\"category\": \"book\", \"price\": 25,  \"title\": \"abrakadabra\"}", system.file("extdata", "schema.json", package = "JSONValidate"))
-// validate_json_with_schemafile("{\"category\": \"book\", \"price\": 25,  \"title\": \"abrakadabra\"}", system.file("extdata", "broken-schema.json", package = "JSONValidate"))
+// validate_jsonfile_with_schemafile(system.file("extdata", "item-3.json", package = "validatejsonr"), system.file("extdata", "schema.json", package = "validatejsonr"))
+// validate_jsonfile_with_schemafile(system.file("extdata", "malformed-json.json", package = "validatejsonr"), system.file("extdata", "schema.json", package = "validatejsonr"))
+// validate_jsonfile_with_schemafile(system.file("extdata", "item-3.json", package = "validatejsonr"), system.file("extdata", "schema.json", package = "validatejsonr"))
+// validate_jsonfile_with_schemafile(system.file("extdata", "item-3.json", package = "validatejsonr"),system.file("extdata", "broken-schema.json", package = "validatejsonr"))
+// validate_json_with_schemafile("{\"category\": \"book\", \"price\": 25,  \"title\": \"abrakadabra\"}", system.file("extdata", "schema.json", package = "validatejsonr"))
+// validate_json_with_schemafile("{\"category\": \"book\", \"price\": 25,  \"title\": \"abrakadabra\"}", system.file("extdata", "broken-schema.json", package = "validatejsonr"))
 
 #include "rapidjson/error/en.h"
 #include "rapidjson/filereadstream.h"
@@ -90,7 +90,7 @@ std::string build_invalid_error_msg(rapidjson::SchemaValidator& validator) {
 //' validate_jsonfile_with_schemafile("data/item-3.json", "data/schema.json")
 //' }
 //' @export
-//' @useDynLib JSONValidate
+//' @useDynLib validatejsonr
 //' @importFrom Rcpp evalCpp
 // [[Rcpp::export]]
 List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn) {
@@ -172,7 +172,7 @@ List validate_jsonfile_with_schemafile(std::string jsonfn, std::string schemafn)
 //' validate_json_with_schemafile(json_code, "data/schema.json")
 //' }
 //' @export
-//' @useDynLib JSONValidate
+//' @useDynLib validatejsonr
 //' @importFrom Rcpp evalCpp
 // [[Rcpp::export]]
 List validate_json_with_schemafile(std::string json_string, std::string schemafn) {
@@ -243,7 +243,7 @@ List validate_json_with_schemafile(std::string json_string, std::string schemafn
 //' validate_json_with_schemafile(json_code, "data/schema.json")
 //' }
 //' @export
-//' @useDynLib JSONValidate
+//' @useDynLib validatejsonr
 //' @importFrom Rcpp evalCpp
 // [[Rcpp::export]]
 List validate_jsonfile_with_schema(std::string jsonfn, std::string schema_string) {
@@ -297,7 +297,7 @@ List validate_jsonfile_with_schema(std::string jsonfn, std::string schema_string
 //' This function will check that the supplied schema is not empty and it will then validate 
 //' that the JSON code is valid (and well formed) w.r.t the supplied schema.
 //' @export
-//' @useDynLib JSONValidate
+//' @useDynLib validatejsonr
 //' @importFrom Rcpp evalCpp
 // [[Rcpp::export]]
 List validate_json_with_schema(std::string json_string, std::string schema_string) {

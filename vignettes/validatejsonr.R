@@ -1,18 +1,18 @@
 ## ------------------------------------------------------------------------
-library(JSONValidate)
-validjson     <- system.file("extdata", "item-3.json", package = "JSONValidate")
-schemafile    <- system.file("extdata", "schema.json", package = "JSONValidate")
+library(validatejsonr)
+validjson     <- system.file("extdata", "item-3.json", package = "validatejsonr")
+schemafile    <- system.file("extdata", "schema.json", package = "validatejsonr")
 
 result <- validate_jsonfile_with_schemafile(validjson, schemafile)
 print(result$value)
 
-malformedjson <- system.file("extdata", "malformed-json.json", package = "JSONValidate")
+malformedjson <- system.file("extdata", "malformed-json.json", package = "validatejsonr")
 
 print(result$message)
 
 
 ## ------------------------------------------------------------------------
-malformedjson <- system.file("extdata", "malformed-json.json", package = "JSONValidate")
+malformedjson <- system.file("extdata", "malformed-json.json", package = "validatejsonr")
 
 result <- validate_jsonfile_with_schemafile(malformedjson, schemafile)
 print(result$value)
@@ -27,7 +27,7 @@ cat("JSON File that the function was called with:")
 print(result$jsonfile)
 
 ## ------------------------------------------------------------------------
-invalidjson  <- system.file("extdata", "item-2.json", package = "JSONValidate")
+invalidjson  <- system.file("extdata", "item-2.json", package = "validatejsonr")
 
 result <- validate_jsonfile_with_schemafile(invalidjson, schemafile)
 

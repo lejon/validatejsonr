@@ -2,11 +2,11 @@ library(testthat)
 
 context("Validate JSON string-string IO")
 
-validjson       <- system.file("extdata", "item-3.json", package = "JSONValidate")
-schemafile      <- system.file("extdata", "schema.json", package = "JSONValidate")
-invalidjsonfn1  <- system.file("extdata", "item-1.json", package = "JSONValidate")
-invalidjsonfn2  <- system.file("extdata", "item-2.json", package = "JSONValidate")
-malformedjsonfn <- system.file("extdata", "malformed-json.json", package = "JSONValidate")
+validjson       <- system.file("extdata", "item-3.json", package = "validatejsonr")
+schemafile      <- system.file("extdata", "schema.json", package = "validatejsonr")
+invalidjsonfn1  <- system.file("extdata", "item-1.json", package = "validatejsonr")
+invalidjsonfn2  <- system.file("extdata", "item-2.json", package = "validatejsonr")
+malformedjsonfn <- system.file("extdata", "malformed-json.json", package = "validatejsonr")
 schema_code     <- readChar(schemafile, file.info(schemafile)$size)
 
 test_that("validate valid", {  

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/lejon/JSONValidate.svg?branch=master)](https://travis-ci.org/lejon/JSONValidate)
+[![Build Status](https://travis-ci.org/lejon/JSONValidate.svg?branch=master)](https://travis-ci.org/lejon/validatejsonr)
 
 # validatejsonr
 An R package for validation of JSON against JSON Schema. There are functions for using JSON file with JSON Schema file,
@@ -12,7 +12,7 @@ JSON Schema Draft version 4. RapidJSON pass 262 out of 263 tests in JSON Schema 
 Validate a valid JSON file w.r.t Schema
 
 ```
-library(JSONValidate)
+library(validatejsonr)
 
   > validjson <- "inst/extdata/item-3.json"
   > schemafile <- "inst/extdata/schema.json"
@@ -35,7 +35,7 @@ library(JSONValidate)
 Validate a non-well formed JSON file w.r.t Schema
 
 ```
-library(JSONValidate)
+library(validatejsonr)
 
   > validjson <- "inst/extdata/item-1.json"
   > schemafile <- "inst/extdata/schema.json"
@@ -58,7 +58,7 @@ library(JSONValidate)
 Validate an in-valid JSON file w.r.t Schema
 
 ```
-library(JSONValidate)
+library(validatejsonr)
 
   > validjson <- "inst/extdata/item-1.json"
   > schemafile <- "inst/extdata/schema.json"

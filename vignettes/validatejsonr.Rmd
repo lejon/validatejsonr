@@ -1,5 +1,5 @@
 ---
-title: "JSONValidate"
+title: "validatejsonr"
 author: "Leif Jonsson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -9,14 +9,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-JSONValidate is an R wrapper around an efficient C++ JSON Schema validator called 'rapidjson'. You can read more about 'rapodjson' here: https://github.com/miloyip/rapidjson. JSON files can be *well-formed* and/or *valid*. A well-formed JSON file conforms to the *syntactic* 
+validatejsonr is an R wrapper around an efficient C++ JSON Schema validator called 'rapidjson'. You can read more about 'rapodjson' here: https://github.com/miloyip/rapidjson. JSON files can be *well-formed* and/or *valid*. A well-formed JSON file conforms to the *syntactic* 
 requirements of JSON. Additionaly a *valid* JSON file conforms to a specified JSON Schema. 
 
-JSONValidate via 'rapidjson' supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).
+validatejsonr via 'rapidjson' supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).
 
 ## Usage Scenarios
 
-JSONValidate support four main usage scenarios. 
+validatejsonr support four main usage scenarios. 
 
   * Validate a JSON file against a JSON Schema file
   * Validate a JSON string against a JSON Schema file
@@ -39,14 +39,14 @@ The result of a validation contains four fields
 Example using a schema file on a well-formed and valid JSON file returns a 0 value.
 
 ```{r}
-library(JSONValidate)
-validjson     <- system.file("extdata", "item-3.json", package = "JSONValidate")
-schemafile    <- system.file("extdata", "schema.json", package = "JSONValidate")
+library(validatejsonr)
+validjson     <- system.file("extdata", "item-3.json", package = "validatejsonr")
+schemafile    <- system.file("extdata", "schema.json", package = "validatejsonr")
 
 result <- validate_jsonfile_with_schemafile(validjson, schemafile)
 print(result$value)
 
-malformedjson <- system.file("extdata", "malformed-json.json", package = "JSONValidate")
+malformedjson <- system.file("extdata", "malformed-json.json", package = "validatejsonr")
 
 print(result$message)
 
@@ -55,7 +55,7 @@ print(result$message)
 Using validate_* on a syntactically invalid JSON file returns a 1XX error.
 
 ```{r}
-malformedjson <- system.file("extdata", "malformed-json.json", package = "JSONValidate")
+malformedjson <- system.file("extdata", "malformed-json.json", package = "validatejsonr")
 
 result <- validate_jsonfile_with_schemafile(malformedjson, schemafile)
 print(result$value)
@@ -75,7 +75,7 @@ print(result$jsonfile)
 Using validate_* on a syntactically correct JSON but invalid (file does not conform to schema) file returns a 2XX error.
 
 ```{r}
-invalidjson  <- system.file("extdata", "item-2.json", package = "JSONValidate")
+invalidjson  <- system.file("extdata", "item-2.json", package = "validatejsonr")
 
 result <- validate_jsonfile_with_schemafile(invalidjson, schemafile)
 

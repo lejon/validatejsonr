@@ -14,10 +14,10 @@
 #' validate_jsonfile_with_schemafile("data/item-3.json", "data/schema.json")
 #' }
 #' @export
-#' @useDynLib JSONValidate
+#' @useDynLib validatejsonr
 #' @importFrom Rcpp evalCpp
 validate_jsonfile_with_schemafile <- function(jsonfn, schemafn) {
-    .Call('JSONValidate_validate_jsonfile_with_schemafile', PACKAGE = 'JSONValidate', jsonfn, schemafn)
+    .Call('validatejsonr_validate_jsonfile_with_schemafile', PACKAGE = 'validatejsonr', jsonfn, schemafn)
 }
 
 #' Validate a JSON string against a JSON Schema file
@@ -34,10 +34,10 @@ validate_jsonfile_with_schemafile <- function(jsonfn, schemafn) {
 #' validate_json_with_schemafile(json_code, "data/schema.json")
 #' }
 #' @export
-#' @useDynLib JSONValidate
+#' @useDynLib validatejsonr
 #' @importFrom Rcpp evalCpp
 validate_json_with_schemafile <- function(json_string, schemafn) {
-    .Call('JSONValidate_validate_json_with_schemafile', PACKAGE = 'JSONValidate', json_string, schemafn)
+    .Call('validatejsonr_validate_json_with_schemafile', PACKAGE = 'validatejsonr', json_string, schemafn)
 }
 
 #' Validate a JSON file against a JSON Schema string
@@ -53,10 +53,10 @@ validate_json_with_schemafile <- function(json_string, schemafn) {
 #' validate_json_with_schemafile(json_code, "data/schema.json")
 #' }
 #' @export
-#' @useDynLib JSONValidate
+#' @useDynLib validatejsonr
 #' @importFrom Rcpp evalCpp
 validate_jsonfile_with_schema <- function(jsonfn, schema_string) {
-    .Call('JSONValidate_validate_jsonfile_with_schema', PACKAGE = 'JSONValidate', jsonfn, schema_string)
+    .Call('validatejsonr_validate_jsonfile_with_schema', PACKAGE = 'validatejsonr', jsonfn, schema_string)
 }
 
 #' Validate a JSON string against a JSON Schema string
@@ -67,9 +67,9 @@ validate_jsonfile_with_schema <- function(jsonfn, schema_string) {
 #' This function will check that the supplied schema is not empty and it will then validate 
 #' that the JSON code is valid (and well formed) w.r.t the supplied schema.
 #' @export
-#' @useDynLib JSONValidate
+#' @useDynLib validatejsonr
 #' @importFrom Rcpp evalCpp
 validate_json_with_schema <- function(json_string, schema_string) {
-    .Call('JSONValidate_validate_json_with_schema', PACKAGE = 'JSONValidate', json_string, schema_string)
+    .Call('validatejsonr_validate_json_with_schema', PACKAGE = 'validatejsonr', json_string, schema_string)
 }
 
