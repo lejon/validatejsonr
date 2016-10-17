@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/lejon/JSONValidate.svg?branch=master)](https://travis-ci.org/lejon/JSONValidate)
 
-# JSONValidate
+# validatejsonr
 An R package for validation of JSON against JSON Schema. There are functions for using JSON file with JSON Schema file,
 a JSON string with a JSON Schema file and vice-versa, and finally a JSON string with a JSON Schema.
 
-JSON Validare is based on the C++ library RapidJSON (https://github.com/miloyip/rapidjson), which currently supports 
+validatejsonr is based on the C++ library RapidJSON (https://github.com/miloyip/rapidjson), which currently supports 
 JSON Schema Draft version 4. RapidJSON pass 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).
 
 ## Example Usage:
