@@ -1,2 +1,2 @@
 CXX=clang++
-PKG_CPPFLAGS += -Iinclude/
+PKG_CPPFLAGS = -Iinclude/
