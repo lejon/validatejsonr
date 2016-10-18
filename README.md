@@ -110,7 +110,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### Other External licenses
 
-The individual extenrnal library licenses are located in their respective folder under 'src'
+The individual external library licenses are located in their respective folder under 'src'
 
 RapidJSON is released under the Terms of the MIT License:
 ---------------------------------------------------------
