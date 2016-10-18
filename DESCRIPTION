@@ -1,7 +1,7 @@
 Package: validatejsonr
 Type: Package
 Title: Validate JSON Against JSON Schemas
-Version: 1.0.1
+Version: 1.0.2
 Date: 2016-10-18
 Authors@R: c(
   person("Leif", "Jonsson", email = "leif.jonsson@gmail.com", role = c("aut", "cre")),
@@ -9,7 +9,7 @@ Authors@R: c(
   person("Alexander", "Chemeris", role = "aut"))
 Maintainer: Leif Jonsson <leif.jonsson@gmail.com>
 Description: The current implementation uses the C++ library RapidJSON to supply the schema functionality, it supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).
-License: BSD_2_clause + file LICENSE
+License: BSD 2-clause License + file LICENSE
 Imports:
     Rcpp (>= 0.12.6)
 LinkingTo: Rcpp
