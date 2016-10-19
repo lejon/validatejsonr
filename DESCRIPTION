@@ -1,7 +1,7 @@
 Package: validatejsonr
 Type: Package
 Title: Validate JSON Against JSON Schemas
-Version: 1.0.3
+Version: 1.0.4
 Date: 2016-10-18
 Authors@R: c(
   person("Leif", "Jonsson", email = "leif.jonsson@gmail.com", role = c("aut", "cre")),
