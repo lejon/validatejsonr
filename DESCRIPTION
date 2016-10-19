@@ -11,7 +11,7 @@ Authors@R: c(
   person("Alexander", "Chemeris", role = "aut")
   )
 Maintainer: Leif Jonsson <leif.jonsson@gmail.com>
-Description: The current implementation uses the C++ library RapidJSON to supply the schema functionality, it supports JSON Schema Draft v4. 2016-09-09: RapidJSON passed 262 out of 263 tests in JSON Schema Test Suite (Json Schema draft 4).
+Description: The current implementation uses the C++ library 'RapidJSON' to supply the schema functionality, it supports JSON Schema Draft v4. As of 2016-09-09, 'RapidJSON' passed 262 out of 263 tests in JSON Schema Test Suite (JSON Schema draft 4).
 License: BSD_2_clause + file LICENSE
 Imports:
     Rcpp (>= 0.12.6)
