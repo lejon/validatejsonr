@@ -6,6 +6,17 @@
 // validate_json_with_schemafile("{\"category\": \"book\", \"price\": 25,  \"title\": \"abrakadabra\"}", system.file("extdata", "schema.json", package = "validatejsonr"))
 // validate_json_with_schemafile("{\"category\": \"book\", \"price\": 25,  \"title\": \"abrakadabra\"}", system.file("extdata", "broken-schema.json", package = "validatejsonr"))
 
+//! Assertion.
+/*! \ingroup RAPIDJSON_CONFIG
+By default, rapidjson uses C \c assert() for internal assertions.
+User can override it by defining RAPIDJSON_ASSERT(x) macro.
+*/
+#ifndef RAPIDJSON_ASSERT
+#define RAPIDJSON_ASSERT(x) ((void)0)
+#endif // RAPIDJSON_ASSERT
+
+
+
 #include "rapidjson/error/en.h"
 #include "rapidjson/filereadstream.h"
 #include "rapidjson/schema.h"
